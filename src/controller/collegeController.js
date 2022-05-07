@@ -17,10 +17,10 @@ const createColleges = async (req, res) => {
             return res.status(400).send({ status: false, message: " Name is required" })
         }
 
-        let uniqueName=await collegeModel.findOne({name: data.name});
-        if(uniqueName)
-            return res.status(400).send({status:false,message:"Name already exist"})
-    
+        let uniqueName = await collegeModel.findOne({ name: data.name });
+        if (uniqueName)
+            return res.status(400).send({ status: false, message: "Name already exist" })
+
         if (!data.fullName) {
             return res.status(400).send({ status: false, message: 'Full name is required' })
         }
@@ -49,7 +49,7 @@ const createColleges = async (req, res) => {
 
 }
 //===============================3=======================================================//
- const collegeDetails = async function (req, res) {
+const collegeDetails = async function (req, res) {
     try {
 
         let data = req.query.collegeName //getting the data from query
@@ -71,26 +71,26 @@ const createColleges = async (req, res) => {
                 interests: internList
             }
             //console.log(internList.length)
-          res.status(200).send({ status: true, data: Data });
+            res.status(200).send({ status: true, data: Data });
         }
-        else{
-            let Data={
+        else {
+            let Data = {
                 name: getCollege.name,
                 fullName: getCollege.fullName,
                 logoLink: getCollege.logoLink,
-                interests:"no intern applied for this college"
+                interests: "no intern applied for this college"
             }
             return res.status(200).send({ status: true, data: Data });
         }
 
-    
+
 
     }
     catch (err) {
         console.log(err)
         res.status(500).send({ status: false, message: "error", err: err.message })
     }
-} 
+}
 
 
 module.exports.createColleges = createColleges
