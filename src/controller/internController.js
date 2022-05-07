@@ -19,7 +19,7 @@ const createIntern = async (req, res) => {
         if (!data.name) {
             return res.status(400).send({ status: false, message: "Name is required" });
         }
-        
+
         if (!data.email) {
             return res.status(400).send({ status: false, message: "Email is required" });
         }
@@ -46,15 +46,15 @@ const createIntern = async (req, res) => {
         if (uniqueMobile) {
             return res.status(400).send({ status: false, message: "Mobile Number already exist" })
         }
-        
+
         let collegeData = await collegeModel.findOne({ name: data.collegeName })
         if (!collegeData) {
             return res.status(404).send({ status: false, message: "collegeName invalid" })
         }
 
         data["collegeId"] = collegeData._id
-       //delete data.collegeName
- 
+        //delete data.collegeName
+
         const result = await internModel.create(data)
         res.status(201).send({ status: true, data: result })  //create document in Intern collection
 
@@ -67,13 +67,3 @@ const createIntern = async (req, res) => {
 module.exports.createIntern = createIntern
 
 
-
-
-
-
-/* if(!isValidObjectId(data.collegeId))//check whether the given string is valid object id or not
-       return res.status(400).send({status:false, message:"Enter a valid collegeId"}) */
-        // getting the college data from the database by using collegeId
-/* let collegeData = await collegeModel.findById(data.collegeId)
-if(!collegeData) return res.status(400).send({status:false, message:"Enter a valid collegeId"}) 
-*/
